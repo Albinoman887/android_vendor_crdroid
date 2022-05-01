@@ -16,30 +16,11 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Package name(s) containing location provider support.
-         These packages can contain services implementing location providers,
-         such as the Geocode Provider, Network Location Provider, and Fused
-         Location Provider.
-         The signatures of packages named below and installed in the system
-         image are "allowed" signatures.
-         The location framework checks ALL installed packages if they provide
-         an implementation of a specific location provider and compares the
-         signature of the package with the list of allowed signatures.
-
-         The location framework has support for installation of new or
-         updated location providers at run-time. However the new package must
-         have a signature that matches the signature of at least one package
-         on this list which is installed in the system image.
-
-         The chosen package for the specific location provider does not
-         depend on the order of this list. -->
     <string-array name="config_locationProviderPackageNames" translatable="false">
         <!-- The Google provider -->
         <item>com.google.android.gms</item>
         <!-- The standard AOSP fused location provider -->
         <item>com.android.location.fused</item>
-        <!-- The MicroG Unified location provider -->
-        <item>org.microg.nlp</item>
     </string-array>
 
     <bool name="config_cellBroadcastAppLinks">true</bool>
@@ -61,6 +42,9 @@
         <item>com.google.android.dialer/com.android.dialer.rtt.settings.impl.gateway.RttSettingsDeepLink</item>
     </string-array>
 
+    <string name="config_mms_user_agent">LineageOS</string>
+    <string name="config_mms_user_agent_profile_url">http://www.google.com/oha/rdf/ua-profile-kila.xml</string>
+
     <!-- Enable lockscreen rotation by default -->
     <bool name="config_enableLockScreenRotation">true</bool>
 
@@ -75,6 +59,14 @@
 
     <!-- Recents text and image selection for Pixel Launcher (not supported by Launcher3) -->
     <string name="config_defaultContentSuggestionsService" translatable="false">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiContentSuggestionsService</string>
+
+    <!-- Corner radius of system dialogs -->
+    <dimen name="config_dialogCornerRadius">28dp</dimen>
+    
+    <!-- System-provided radius for the background view of app widgets. The resolved value of this resource may change at runtime. -->
+    <dimen name="system_app_widget_background_radius">28dp</dimen>
+    <!-- System-provided radius for inner views on app widgets. The resolved value of this resource may change at runtime. -->
+    <dimen name="system_app_widget_inner_radius">20dp</dimen>
 
     <!-- If this is true, long press on power button will be available from a
          non-interactive state. -->
@@ -103,10 +95,6 @@
     <!-- Whether or not we should show the option to show battery percentage -->
     <bool name="config_battery_percentage_setting_available">false</bool>
 
-    <!-- Flag indicating whether the assist disclosure can be disabled using
-         ASSIST_DISCLOSURE_ENABLED. -->
-    <bool name="config_allowDisablingAssistDisclosure">true</bool>
-
     <!-- The package name for the default wellbeing app.
          This package must be trusted, as it has the permissions to control other applications
          on the device.
@@ -114,12 +102,15 @@
      -->
     <string name="config_defaultWellbeingPackage">com.google.android.apps.wellbeing</string>
 
-    <!-- The name of the package that will hold the wellbeing role. -->
-    <string name="config_systemWellbeing">com.google.android.apps.wellbeing</string>
+    <!-- Flag indicating whether we should enable smart battery. -->
+    <bool name="config_smart_battery_available">true</bool>
 
-    <!-- Package name that will receive an explicit manifest broadcast for
-         android.os.action.POWER_SAVE_MODE_CHANGED. -->
-    <string name="config_powerSaveModeChangedListenerPackage">com.google.android.flipendo</string>
+    <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
+    <bool name="config_unplugTurnsOnScreen">true</bool>
+
+    <!-- Amount of time in ms the user needs to press the relevant keys to trigger the
+         screenshot chord -->
+    <integer name="config_screenshotChordKeyTimeout">0</integer>
 
     <!-- List of packages that can use the Conversation space for their category messages
     notifications until they target R -->
@@ -152,9 +143,11 @@
      <!-- Flag indicating which package name can access DeviceConfig table -->
     <string name="config_deviceConfiguratorPackageName" translatable="false">org.protonaosp.deviceconfig</string>
 
+    <!-- the number of the max cached processes in the system. -->
+    <integer name="config_customizedMaxCachedProcesses">64</integer>
+
     <!-- Wallpaper cropper package. Used as the default cropper if the active launcher doesn't
-         handle wallpaper cropping.
-    -->
+         handle wallpaper cropping. -->
     <string name="config_wallpaperCropperPackage" translatable="false">com.android.wallpaper</string>
 
     <!-- Control the behavior when the user long presses the power button.
@@ -174,320 +167,11 @@
     -->
     <integer name="config_keyChordPowerVolumeUp">1</integer>
 
-    <!-- Whether this device is supporting the microphone toggle -->
-    <bool name="config_supportsMicToggle">true</bool>
-    <!-- Whether this device is supporting the camera toggle -->
-    <bool name="config_supportsCamToggle">true</bool>
-
-    <!-- The amount to scale fullscreen snapshots for Overview and snapshot starting windows. -->
-    <item name="config_highResTaskSnapshotScale" format="float" type="dimen">0.8</item>
-
-    <!-- Extra location package names -->
-    <string-array name="config_locationExtraPackageNames" translatable="false">
-        <!-- Google Play Services location history module -->
-        <item>com.google.android.gms.location.history</item>
-    </string-array>
-
-    <!-- The package name of the default network recommendation app.
-         A network recommendation provider must:
-             * Be granted the SCORE_NETWORKS permission.
-             * Be granted the ACCESS_COARSE_LOCATION permission.
-             * Include a Service for the android.net.scoring.RECOMMEND_NETWORKS action
-               protected by the BIND_NETWORK_RECOMMENDATION_SERVICE permission.
-         This must be set to a valid network recommendation app or empty.
-     -->
-    <string name="config_defaultNetworkRecommendationProviderPackage" translatable="false">com.google.android.gms</string>
-
-    <!-- A list of potential packages, in priority order, that may contain an
-         ephemeral resolver. Each package will be be queried for a component
-         that has been granted the PACKAGE_EPHEMERAL_AGENT permission.
-         This may be empty if ephemeral apps are not supported. -->
-    <string-array name="config_ephemeralResolverPackage" translatable="false">
-        <!-- Google Play Services or microG -->
-        <item>com.google.android.gms</item>
-    </string-array>
-
-    <!-- The set of system packages on device that are queryable by any app regardless of the
-         contents of its manifest. -->
-    <string-array name="config_forceQueryablePackages" translatable="false">
-        <!-- Android Settings -->
-        <item>com.android.settings</item>
-        <item>com.android.providers.settings</item>
-        <!-- Google Play Services or microG -->
-        <item>com.google.android.gms</item>
-        <!-- Google Play Store -->
-        <item>com.android.vending</item>
-    </string-array>
-
-    <!-- A list of potential packages, in priority order, that can supply rules to
-         AppIntegrityManager. These need to be apps on the system partition. -->
-    <string-array name="config_integrityRuleProviderPackages" translatable="false">
-        <!-- Google Play Services or microG -->
-        <item>com.google.android.gms</item>
-        <!-- Google Play Store -->
-        <item>com.android.vending</item>
-    </string-array>
-
-    <!-- The component name for the default profile supervisor, which can be set as a profile owner
-    even after user setup is complete. The defined component should be used for supervision purposes
-    only. The component must be part of a system app. -->
-    <string name="config_defaultSupervisionProfileOwnerComponent" translatable="false">com.google.android.gms/.kids.account.receiver.ProfileOwnerReceiver</string>
-
-    <!-- An array of packages for which notifications cannot be blocked.
-         Should only be used for core device functionality that must not be
-         rendered inoperative for safety reasons, like the phone dialer and
-         SMS handler. -->
-    <string-array translatable="false" name="config_nonBlockableNotificationPackages">
-        <!-- AOSP apps -->
-        <item>com.android.dialer</item>
-        <item>com.android.messaging</item>
-        <!-- Google apps -->
-        <item>com.google.android.deskclock:Firing</item>
-        <item>com.google.android.setupwizard</item>
-        <item>com.google.android.apps.pixelmigrate</item>
-        <item>com.google.android.dialer</item>
-    </string-array>
-
-    <!-- Names of packages that should not be suspended when personal use is blocked by policy. -->
-    <string-array name="config_packagesExemptFromSuspension" translatable="false">
-        <!-- AOSP apps -->
-        <item>com.android.vending</item>
-        <item>com.android.systemui</item>
-        <item>com.android.settings</item>
-        <item>com.google.android.gms</item>
-        <!-- Google apps -->
-        <item>com.google.android.apps.wellbeing</item>
-        <item>com.google.android.apps.pixelmigrate</item>
-        <item>com.google.android.apps.restore</item>
-    </string-array>
-
-    <!-- An array of packages that can make sound on the ringer stream in priority-only DND
-     mode -->
-    <string-array translatable="false" name="config_priorityOnlyDndExemptPackages">
-        <!-- AOSP apps -->
-        <item>com.android.dialer</item>
-        <item>com.android.systemui</item>
-        <item>com.android.server.telecom</item>
-        <item>android</item>
-        <!-- Google apps -->
-        <item>com.google.android.dialer</item>
-    </string-array>
-
-    <!-- Colon separated list of package names that should be granted Notification Listener access -->
-    <string name="config_defaultListenerAccessPackages" translatable="false">com.android.launcher3:com.google.android.apps.nexuslauncher:com.google.android.setupwizard:com.google.android.apps.pixelmigrate:com.google.android.as</string>
-
-    <!-- Apps that are authorized to access shared accounts, overridden by product overlays -->
-    <string name="config_appsAuthorizedForSharedAccounts" translatable="false">;com.android.vending;com.android.settings;</string>
-
-    <!-- Package name that should be granted Notification Assistant access -->
-    <string name="config_defaultAssistantAccessPackage" translatable="false">com.google.android.ext.services</string>
-
-    <!-- Component name that accepts ACTION_SEND intents for nearby (proximity-based) sharing.
-         Used by ChooserActivity. -->
-    <string name="config_defaultNearbySharingComponent" translatable="false">com.google.android.gms/.nearby.sharing.ShareSheetActivity</string>
-
-    <!-- The list of IMEs which should be disabled until used.
-         This function suppresses update notifications for these pre-installed apps.
-         We need to set this configuration carefully that they should not have functionarities
-         other than "IME" or "Spell Checker". In InputMethodManagerService,
-         the listed IMEs are disabled until used when all of the following conditions are met.
-         1. Not selected as an enabled IME in the Settings
-         2. Not selected as a spell checker in the Settings
-         3. Installed
-         4. A pre-installed IME
-         5. Not enabled
-         And the disabled_until_used state for an IME is released by InputMethodManagerService
-         when the IME is selected as an enabled IME. -->
-    <string-array name="config_disabledUntilUsedPreinstalledImes" translatable="false">
-        <item>com.android.inputmethod.latin</item>
-        <item>com.google.android.inputmethod.latin</item>
-        <item>com.google.android.apps.inputmethod.hindi</item>
-        <item>com.google.android.inputmethod.japanese</item>
-        <item>com.google.android.inputmethod.korean</item>
-        <item>com.google.android.inputmethod.pinyin</item>
-        <item>jp.co.omronsoft.iwnnime.ml</item>
-        <item>com.nuance.xt9.input</item>
-    </string-array>
-
-    <!-- Additional non-platform defined secure settings exposed to Instant Apps -->
-    <string-array name="config_allowedSecureInstantAppSettings">
-        <item>advertising_id</item>
-        <item>limit_ad_tracking</item>
-    </string-array>
-
-    <!-- An array of packages that need to be treated as type service in battery settings -->
-    <string-array translatable="false" name="config_batteryPackageTypeService">
-        <item>com.google.android.gms</item>
-        <item>com.google.android.apps.gcs</item>
-    </string-array>
-
-    <!-- The package of the time zone rules data application. Expected to be configured
-         by OEMs to reference their own priv-app APK package.
-         A package-targeted com.android.intent.action.timezone.TRIGGER_RULES_UPDATE_CHECK intent
-         will be sent to the updater app if the system server detects an update to the updater or
-         data app packages.
-         [This is only used if config_enableUpdateableTimeZoneRules and
-         config_timeZoneRulesUpdateTrackingEnabled are true.] -->
-    <string name="config_timeZoneRulesDataPackage" translatable="false">com.google.android.timezone.data</string>
-
-    <!-- The component name, flattened to a string, for the default autofill service
-         to  enabled for an user. This service must be trusted, as it can be activated
-         without explicit consent of the user. If no autofill service with the
-          specified name exists on the device, autofill will be disabled by default.
-    -->
-    <string name="config_defaultAutofillService" translatable="false">com.google.android.gms/.autofill.service.AutofillService</string>
-
-    <!-- Colon separated list of package names that should be granted DND access -->
-    <string name="config_defaultDndAccessPackages" translatable="false">com.google.android.gms:com.google.android.GoogleCamera:com.google.intelligence.sense:com.google.android.settings.intelligence:com.google.android.dialer</string>
-
-    <!-- Flag indicating whether we should enable smart battery. -->
-    <bool name="config_smart_battery_available">true</bool>
-
-    <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
-    <bool name="config_unplugTurnsOnScreen">true</bool>
-
-    <!-- Whether to send a custom package name with the PSD.-->
-    <bool name="config_sendPackageName">true</bool>
-
-    <!-- Sharesheet: define a max number of targets per application for new shortcuts-based direct share introduced in Q -->
-    <integer name="config_maxShortcutTargetsPerApp">8</integer>
-
-    <!-- The name of the package that will hold the assistant role by default. -->
-    <string name="config_defaultAssistant" translatable="false">com.google.android.googlequicksearchbox</string>
-
-    <!-- The app which will handle routine based automatic battery saver, if empty the UI for
-         routine based battery saver will be hidden -->
-    <string name="config_batterySaverScheduleProvider">com.google.android.apps.turbo</string>
-
-    <!-- Recents text and image selection for Pixel Launcher (not supported by Launcher3) -->
-    <string name="config_defaultContentSuggestionsService" translatable="false">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiContentSuggestionsService</string>
-
-    <!-- Live Captions provided by Google's Device Personalization Service package  -->
-    <string name="config_defaultSystemCaptionsManagerService">com.google.android.as/com.google.android.apps.miphone.aiai.captions.SystemCaptionsManagerService</string>
-    <string name="config_defaultSystemCaptionsService">com.google.android.as/com.google.android.apps.miphone.aiai.captions.CaptionsService</string>
-
-    <!-- Assign roles to AiAi and exempt it from privacy indicators -->
+    <!-- Exempt AiAi from privacy indicators -->
     <string name="config_systemAmbientAudioIntelligence">com.google.android.as</string>
     <string name="config_systemAudioIntelligence">com.google.android.as</string>
     <string name="config_systemNotificationIntelligence">com.google.android.as</string>
     <string name="config_systemTextIntelligence">com.google.android.as</string>
     <string name="config_systemUiIntelligence">com.google.android.as</string>
     <string name="config_systemVisualIntelligence">com.google.android.as</string>
-
-    <!-- the number of the max cached processes in the system. -->
-    <integer name="config_customizedMaxCachedProcesses">64</integer>
-
-    <!-- Android Auto role -->
-    <string name="config_systemAutomotiveProjection" translatable="false">com.google.android.projection.gearhead</string>
-
-    <!-- The package name for the system's app prediction service.
-         This service must be trusted, as it can be activated without explicit consent of the user.
-         Example: "com.android.intelligence/.AppPredictionService"
-    -->
-    <string name="config_defaultAppPredictionService">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiPredictionService</string>
-
-    <!-- Component name that should be granted Notification Assistant access -->
-    <string name="config_defaultAssistantAccessComponent">com.google.android.as/com.google.android.apps.miphone.aiai.common.notification.service.AiAiNotificationAssistantService</string>
-
-    <!-- The component name for the default system attention service.
-         This service must be trusted, as it can be activated without explicit consent of the user.
-         See android.attention.AttentionManagerService.
-    -->
-    <string name="config_defaultAttentionService">com.google.android.as/com.google.android.apps.miphone.aiai.attention.service.AiAiAttentionService</string>
-
-    <!-- The package name for the system's augmented autofill service.
-         This service must be trusted, as it can be activated without explicit consent of the user.
-         If no service with the specified name exists on the device, augmented autofill wil be
-         disabled.
-         Example: "com.android.augmentedautofill/.AugmentedAutofillService"
-    -->
-    <string name="config_defaultAugmentedAutofillService">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiAugmentedAutofillService</string>
-
-    <!-- The package name for the system's content capture service.
-         This service must be trusted, as it can be activated without explicit consent of the user.
-         If no service with the specified name exists on the device, content capture will be
-         disabled.
-         Example: "com.android.contentcapture/.ContentcaptureService"
-    -->
-    <string name="config_defaultContentCaptureService">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiContentCaptureService</string>
-
-    <!-- The package name for the OEM custom system textclassifier service.
-         This service must be trusted, as it can be activated without explicit consent of the user.
-         Example: "com.android.textclassifier"
-         If this is empty, the default textclassifier service (i.e. config_servicesExtensionPackage)
-         will be used.
-
-         See android.view.textclassifier.TextClassificationManager.
-    -->
-    <string name="config_defaultTextClassifierPackage">com.google.android.as</string>
-
-    <!-- The package name for the system's smartspace service.
-     This service returns smartspace results.
-
-     This service must be trusted, as it can be activated without explicit consent of the user.
-     If no service with the specified name exists on the device, smartspace will be disabled.
-     Example: "com.android.intelligence/.SmartspaceService"
-    -->
-    <string name="config_defaultSmartspaceService">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiSmartspaceService</string>
-
-    <!-- Control the default night mode to use when there is no other mode override set.
-         One of the following values (see UiModeManager.java):
-             0 - MODE_NIGHT_AUTO
-             1 - MODE_NIGHT_NO
-             2 - MODE_NIGHT_YES
-    -->
-    <integer name="config_defaultNightMode">2</integer>
-
-    <!-- List of comma separated package names for which we the system will not show crash, ANR,
-         etc. dialogs. -->
-    <string translatable="false" name="config_appsNotReportingCrashes">com.android.statementservice</string>
-
-    <!-- List containing the allowed install sources for accessibility service. -->
-    <string-array name="config_accessibility_allowed_install_source" translatable="false">
-        <item>com.android.vending</item>
-    </string-array >
-
-    <!-- A list of packages managing companion device(s) by the same manufacturers as the main
-         device. It will fall back to showing a prompt if the association has been called multiple
-         times in a short period.
-         Note that config_companionDeviceManagerPackage and config_companionDeviceCerts are
-         parallel arrays.
-     -->
-    <string-array name="config_companionDevicePackages" translatable="false">
-        <item>com.google.android.apps.wear.companion</item>
-        <item>com.google.android.apps.wear.companion</item>
-    </string-array>
-
-    <!-- A list of SHA256 Certificates managing companion device(s) by the same manufacturers as
-         the main device. It will fall back to showing a prompt if the association has been called
-         multiple times in a short period.
-         Note that config_companionDeviceCerts and config_companionDeviceManagerPackage are parallel
-         arrays.
-         Example: "1A:2B:3C:4D"
-     -->
-    <string-array name="config_companionDeviceCerts" translatable="false">
-        <item>92:3F:B8:D6:48:71:01:14:8D:8D:C0:F7:90:11:5D:BA:34:CF:0E:A3:AA:5D:3B:B0:74:D2:D9:73:58:8C:39:3A</item>
-        <item>48:ED:00:58:D1:B6:63:8E:39:A6:E4:C2:DF:1C:4D:5F:DF:59:3F:69:6B:F3:1B:09:A8:8F:93:14:1E:AF:60:0F</item>
-    </string-array>
-
-    <!-- The name of the package that will hold the speech recognizer role by default. -->
-    <string name="config_systemSpeechRecognizer" translatable="false">com.google.android.tts</string>
-	
-    <!-- The name of the package that will hold the system activity recognizer role. -->
-    <string name="config_systemActivityRecognizer" translatable="false">com.google.android.gms</string>
-
-    <!-- Whether the primary location time zone provider is enabled.
-         This setting is ignored if config_enableGeolocationTimeZoneDetection is false.
-         This is turned on in GMS sample config as Google hosts a location time zone provider in
-         GmsCore. -->
-    <bool name="config_enablePrimaryLocationTimeZoneProvider" translatable="false">true</bool>
-
-    <!-- The package hosting the primary location time zone provider.
-         Only used when config_enableGeolocationTimeZoneDetection and
-         config_enablePrimaryLocationTimeZoneProvider are true.
-         See android.service.timezone.TimeZoneProviderService for how to host location time zone
-         provider services.
-         This contains the GmsCore package name in GMS sample config as Google hosts a location
-         time zone provider in GmsCore. The provider implementation is hosted in GmsCore. -->
-    <string name="config_primaryLocationTimeZoneProviderPackageName" translatable="false">com.google.android.gms</string>
 </resources>
