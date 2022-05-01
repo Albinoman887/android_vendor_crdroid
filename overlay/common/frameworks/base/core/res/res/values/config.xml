@@ -44,6 +44,23 @@
 
     <bool name="config_cellBroadcastAppLinks">true</bool>
 
+    <!-- Disable stock OTA components if installed -->
+    <string-array name="config_globallyDisabledComponents" translatable="false">
+        <item>com.android.vending/com.google.android.finsky.systemupdate.SystemUpdateSettingsContentProvider</item>
+        <item>com.android.vending/com.google.android.finsky.systemupdateactivity.SettingsSecurityEntryPoint</item>
+        <item>com.android.vending/com.google.android.finsky.systemupdateactivity.SystemUpdateActivity</item>
+        <item>com.google.android.gms/com.google.android.gms.update.OtaSuggestionSummaryProvider</item>
+        <item>com.google.android.gms/com.google.android.gms.update.SystemUpdateActivity</item>
+        <item>com.google.android.gms/com.google.android.gms.update.SystemUpdateGcmTaskService</item>
+        <item>com.google.android.gms/com.google.android.gms.update.SystemUpdateService</item>
+        <item>com.google.android.as/com.google.intelligence.sense.ambientmusic.history.HistoryContentProvider</item>
+        <item>com.google.android.as/com.google.intelligence.sense.ambientmusic.history.HistoryActivity</item>
+        <item>com.google.android.as/com.google.intelligence.sense.ambientmusic.AmbientMusicSettingsActivity</item>
+        <item>com.google.android.as/com.google.intelligence.sense.ambientmusic.AmbientMusicNotificationsSettingsActivity</item>
+        <item>com.google.android.as/com.google.intelligence.sense.ambientmusic.AmbientMusicSetupWizardActivity</item>
+        <item>com.google.android.dialer/com.android.dialer.rtt.settings.impl.gateway.RttSettingsDeepLink</item>
+    </string-array>
+
     <!-- Enable lockscreen rotation by default -->
     <bool name="config_enableLockScreenRotation">true</bool>
 
@@ -55,6 +72,9 @@
          correctly use them when installed on your device.  Otherwise, keep this disabled
          so that applications can still use their own mechanisms. -->
     <bool name="config_enableAutoPowerModes">true</bool>
+
+    <!-- Recents text and image selection for Pixel Launcher (not supported by Launcher3) -->
+    <string name="config_defaultContentSuggestionsService" translatable="false">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiContentSuggestionsService</string>
 
     <!-- If this is true, long press on power button will be available from a
          non-interactive state. -->
@@ -126,7 +146,10 @@
         <item>org.briarproject.briar.android</item>
     </string-array>
 
-    <!-- Flag indicating which package name can access DeviceConfig table -->
+     <!-- Face detection for screen auto rotation -->
+    <string name="config_defaultRotationResolverService" translatable="false">com.google.android.as/com.google.android.apps.miphone.aiai.app.AiAiRotationResolverService</string>
+
+     <!-- Flag indicating which package name can access DeviceConfig table -->
     <string name="config_deviceConfiguratorPackageName" translatable="false">org.protonaosp.deviceconfig</string>
 
     <!-- Wallpaper cropper package. Used as the default cropper if the active launcher doesn't
