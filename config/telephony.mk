@@ -1,10 +1,11 @@
 # Sensitive Phone Numbers list
-PRODUCT_PACKAGES += \
-    sensitive_pn.xml
 
-# World APN list
-PRODUCT_PACKAGES += \
-    apns-conf.xml
+# GSM APN list
+PRODUCT_COPY_FILES += \
+    vendor/lineage/prebuilt/common/etc/apns-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+
+PRODUCT_COPY_FILES += \
+    vendor/lineage/prebuilt/common/etc/selective-spn-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/selective-spn-conf.xml
 
 # Telephony packages
 PRODUCT_PACKAGES += \
